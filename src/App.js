@@ -6,6 +6,21 @@ import About from './pages/About'
 import NotFound from './pages/NotFound'
 
 function App() {
+
+  const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
+  const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
+
+  async function fetchUsers() {
+    const response = await fetch(`${GITHUB_URL}/users`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`
+      }
+    })
+    const data = response.json()
+    console.log(data)
+  }
+  fetchUsers()
+
   return (
     <Router>
       <div className='flex flex-col justify-between h-screen'>
