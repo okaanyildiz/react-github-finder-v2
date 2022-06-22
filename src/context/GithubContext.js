@@ -29,18 +29,13 @@ export function GithubProvider({ children }) {
             },
         })
 
-
         const { items } = await response.json()
 
         dispatch({
             type: 'GET_USERS',
             payload: items
         })
-
-        console.log(items)
     }
-
-
 
     return (
         <GithubContext.Provider
