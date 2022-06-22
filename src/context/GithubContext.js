@@ -17,12 +17,18 @@ export function GithubProvider({ children }) {
     const [state, dispatch] = useReducer(githubReducer, initialState)
 
     // Get search results
-    async function searchUsers() {
-        const response = await fetch(`${GITHUB_URL}/users`, {
-            headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
-            }
+    async function searchUsers(text) {
+
+        const params = new URLSearchParams({
+            q: text,
         })
+
+        const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+            },
+        })
+
 
         const { items } = await response.json()
 
@@ -30,7 +36,11 @@ export function GithubProvider({ children }) {
             type: 'GET_USERS',
             payload: items
         })
+
+        console.log(items)
     }
+
+
 
     return (
         <GithubContext.Provider
